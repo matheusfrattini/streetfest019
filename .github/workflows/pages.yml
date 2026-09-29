@@ -31,7 +31,12 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build:pages
+      # enablement: liga o GitHub Pages na primeira vez, usando o GITHUB_TOKEN
+      # do proprio workflow (por isso o `pages: write` acima). Sem isto o passo
+      # falha ate alguem ativar o Pages a mao em Settings.
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out
