@@ -75,7 +75,7 @@ export default function Hero() {
           <Link className="btn btn-primary" href="/contato">
             <span>Some com a gente</span>
           </Link>
-          <Link className="btn btn-ghost" href="/frentes#documentario">
+          <Link className="btn btn-ghost" href="/eventos#frentes">
             <span>Assista ao documentário</span>
           </Link>
         </div>

@@ -175,20 +175,6 @@ blockquote.in::before{transform:scaleY(1)}
 .gblock .mark{position:absolute;z-index:2;opacity:.14;filter:grayscale(1) contrast(1.4)}
 .gblock .blob{position:absolute;z-index:0;border-radius:50%;filter:blur(28px);opacity:.5}
 
-.doc-visual{aspect-ratio:16/7;margin-top:8px}
-.doc-visual .blob.a{width:46%;aspect-ratio:1;background:var(--vermelho);left:-6%;top:-24%;animation:float 13s ease-in-out infinite}
-.doc-visual .blob.b{width:38%;aspect-ratio:1;background:var(--roxo);right:4%;bottom:-30%;animation:float 17s ease-in-out infinite reverse}
-.doc-visual .mark{width:120px;right:6%;top:50%;transform:translateY(-50%)}
-.doc-visual .play{position:absolute;z-index:3;left:50%;top:50%;transform:translate(-50%,-50%);
-  width:88px;height:88px;border-radius:50%;border:2px solid var(--off);display:grid;place-items:center}
-.doc-visual .play::before{content:"";border-left:20px solid var(--off);border-top:13px solid transparent;
-  border-bottom:13px solid transparent;margin-left:5px}
-.doc-visual .play::after{content:"";position:absolute;inset:-1px;border-radius:50%;border:2px solid var(--off);
-  animation:pulse 2.6s var(--ease) infinite}
-@keyframes pulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.7);opacity:0}}
-@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(6%,8%)}}
-.doc-visual .cap{position:absolute;z-index:3;left:20px;bottom:16px;font-family:var(--mono);font-size:11px;
-  letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 
 /* ============ INSTITUCIONAL ============ */
 .inst{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:12px}
@@ -718,50 +704,6 @@ section > .wrap{position:relative;z-index:1}
 .lambe-fita-a{left:-10px;top:8%;transform:rotate(-24deg)}
 .lambe-fita-b{right:-10px;bottom:12%;transform:rotate(-24deg)}
 
-/* ---- Linha do tempo presa ---- */
-.ldt{display:grid;grid-template-columns:210px minmax(0,1fr);gap:48px;margin-top:20px}
-.ldt-preso{position:relative}
-.ldt-preso-in{position:sticky;top:120px;display:flex;flex-direction:column;gap:14px}
-.ldt-ano{font-family:var(--display);font-weight:400;font-size:clamp(54px,7vw,86px);
-  line-height:.82;color:var(--off);font-variant-numeric:tabular-nums;
-  animation:ldt-troca .45s var(--ease)}
-@keyframes ldt-troca{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-.ldt-periodo{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--amarelo)}
-.ldt-barra{position:relative;width:4px;height:120px;background:var(--rule);margin-top:6px}
-.ldt-barra i{position:absolute;left:0;top:0;width:100%;height:var(--w,0);
-  background:var(--vermelho);transition:height .5s var(--ease),width .5s var(--ease)}
-.ldt-conta{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted)}
-
-.ldt-lista{list-style:none;margin:0;padding:0}
-.ldt-item{position:relative;padding:0 0 74px 30px;border-left:1px solid var(--rule)}
-.ldt-item:last-child{padding-bottom:0}
-.ldt-cabeca{display:flex;align-items:center;gap:12px;margin-bottom:10px}
-.ldt-ponto{position:absolute;left:-7px;width:13px;height:13px;border-radius:50%;
-  background:var(--carvao);border:3px solid var(--rule);
-  transition:border-color .4s var(--ease),transform .4s var(--ease)}
-.ldt-item.ativo .ldt-ponto{border-color:var(--vermelho);transform:scale(1.25)}
-.ldt-item-ano{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--muted)}
-.ldt-item h3{font-family:var(--display);font-weight:400;font-size:clamp(24px,3.4vw,34px);
-  line-height:1;text-transform:uppercase;margin:0 0 10px;
-  color:var(--muted);transition:color .4s var(--ease)}
-.ldt-item.ativo h3{color:var(--off)}
-.ldt-item p{margin:0 0 18px;color:#CBBDB4;font-size:16px}
-/* o limite de largura vive no invólucro .lambe, nao na foto: as fitas
-   sao posicionadas contra ele e ficariam soltas no vazio da coluna. */
-.ldt-item .lambe{max-width:460px}
-.ldt-ph{aspect-ratio:16/9}
-
-@media (max-width:900px){
-  .ldt{grid-template-columns:1fr;gap:18px}
-  .ldt-preso-in{top:78px;flex-direction:row;align-items:center;gap:16px;
-    background:rgba(23,19,19,.94);backdrop-filter:blur(8px);padding:10px 0;
-    border-bottom:1px solid var(--rule)}
-  .ldt-ano{font-size:44px}
-  .ldt-barra{width:100%;height:4px;margin:0;flex:1}
-  .ldt-barra i{width:var(--w,0);height:100%}
-}
 
 /* ---- Galeria horizontal ---- */
 .gh{position:relative;margin-top:22px}
@@ -797,8 +739,6 @@ section > .wrap{position:relative;z-index:1}
   .js h2[data-palavras] .pal > span{transform:none!important;transition:none}
   .js .lambe .gblock{clip-path:none!important;transition:none}
   .lambe-fita{opacity:1;transition:none}
-  .ldt-ano{animation:none}
-  .ldt-barra i,.ldt-ponto,.ldt-item h3{transition:none}
   .gh-trilha{scroll-snap-type:none}
   .gh-img{transition:none;scale:1}
 }

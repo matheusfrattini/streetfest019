@@ -13,7 +13,7 @@ export default function ProjectShowcaseCard({
   cor: string;
 }) {
   return (
-    <Link className="proj-card" href={"/frentes#" + frente.slug} data-reveal>
+    <Link className="proj-card" href="/eventos#frentes" data-reveal>
       <Foto
         src={frente.coverPhoto}
         alt={frente.titulo.join(" ")}

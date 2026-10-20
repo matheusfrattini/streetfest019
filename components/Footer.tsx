@@ -16,7 +16,7 @@ export default function Footer() {
           </div>
           <nav>
             <Link href="/quem-somos">Quem somos</Link>
-            <Link href="/frentes">Frentes</Link>
+            <Link href="/eventos#frentes">Frentes</Link>
             <Link href="/eventos">Eventos</Link>
             <a href="https://instagram.com/streetfest019">Instagram</a>
           </nav>
