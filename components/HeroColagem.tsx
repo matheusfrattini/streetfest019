@@ -1,18 +1,20 @@
 "use client";
 
+/* Fotos soltas do hero, no idioma do portfólio impresso: giradas, com fita
+   crepe. Ficam nas DUAS laterais e nenhuma invade a faixa central, que é da
+   logo — as posições são todas ancoradas em left/right, nunca no meio.
+
+   No celular a colagem some: não há largura para ela e a logo, e quem perde
+   é sempre a logo. */
+
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
-/* Colagem do hero, no mesmo idioma visual do portfólio impresso: fotos soltas,
-   levemente giradas, com fita crepe. Reagem ao mouse (paralaxe suave) e entram
-   escalonadas junto com as linhas do h1.
-
-   As fotos são recortes de baixa resolução do portfólio — servem para teste.
-   Trocar por arquivos grandes quando o cliente enviar. */
 const PECAS = [
-  { src: "/fotos/breaking-freeze.jpg", alt: "Breaking", cls: "p1", z: 3, prof: 1 },
-  { src: "/fotos/skate-grind.jpg", alt: "Skate", cls: "p2", z: 2, prof: 1.8 },
-  { src: "/fotos/basquete-3x3-medalhas.jpg", alt: "Basquete 3x3", cls: "p3", z: 1, prof: 2.6 },
+  { src: "/fotos/linguagens/skate-1.webp", alt: "Skate", cls: "p1", prof: 1 },
+  { src: "/fotos/linguagens/graffiti-2.webp", alt: "Graffiti", cls: "p2", prof: 2.2 },
+  { src: "/fotos/linguagens/breaking-1.webp", alt: "Breaking", cls: "p3", prof: 1.4 },
+  { src: "/fotos/linguagens/basquete-2.webp", alt: "Basquete", cls: "p4", prof: 2.6 },
 ];
 
 export default function HeroColagem() {
@@ -25,7 +27,7 @@ export default function HeroColagem() {
       el.classList.add("pronta");
       return;
     }
-    const t = setTimeout(() => el.classList.add("pronta"), 420);
+    const t = setTimeout(() => el.classList.add("pronta"), 380);
 
     let raf = 0;
     function onMove(e: MouseEvent) {
@@ -35,8 +37,8 @@ export default function HeroColagem() {
         const dy = e.clientY / window.innerHeight - 0.5;
         el!.querySelectorAll<HTMLElement>(".peca").forEach((p) => {
           const prof = Number(p.dataset.prof ?? 1);
-          p.style.setProperty("--mx", (dx * prof * -14).toFixed(1) + "px");
-          p.style.setProperty("--my", (dy * prof * -14).toFixed(1) + "px");
+          p.style.setProperty("--mx", (dx * prof * -10).toFixed(1) + "px");
+          p.style.setProperty("--my", (dy * prof * -10).toFixed(1) + "px");
         });
       });
     }
@@ -51,9 +53,9 @@ export default function HeroColagem() {
   return (
     <div className="colagem" ref={root} aria-hidden="true">
       {PECAS.map((p) => (
-        <figure key={p.cls} className={"peca " + p.cls} data-prof={p.prof} style={{ zIndex: p.z }}>
+        <figure key={p.cls} className={"peca " + p.cls} data-prof={p.prof}>
           <span className="fita" />
-          <Image src={p.src} alt={p.alt} fill sizes="(max-width:1100px) 0px, 320px" />
+          <Image src={p.src} alt={p.alt} fill sizes="(max-width:1100px) 0px, 200px" />
         </figure>
       ))}
     </div>

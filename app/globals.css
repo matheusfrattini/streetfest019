@@ -62,22 +62,42 @@ nav a:hover::after,nav a:focus-visible::after{transform:scaleX(1)}
 @media (max-width:900px){nav{display:none}}
 
 /* ============ HERO ============ */
-.hero{position:relative;padding:110px 0 90px;border-bottom:6px solid var(--vermelho);overflow:hidden}
-.hero canvas{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:.55}
+.hero{position:relative;padding:72px 0 80px;border-bottom:6px solid var(--vermelho);
+  overflow:hidden;min-height:min(86vh,760px);display:flex;align-items:center}
+#grain{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:.55}
 .hero .glow{position:absolute;inset:0;pointer-events:none;
   background:
     radial-gradient(58% 85% at 80% 26%, rgba(228,35,19,.26), transparent 68%),
     radial-gradient(48% 68% at 12% 84%, rgba(111,38,169,.22), transparent 70%);}
 .hero .wrap{position:relative;z-index:2}
+/* coluna central: kicker, logo, texto. Largura travada para a colagem
+   lateral nunca encostar no que e da logo. */
+.hero-centro{display:flex;flex-direction:column;align-items:center;text-align:center;
+  max-width:720px}
+.hero-centro .kicker{margin:0 0 20px}
+.hero-texto{font-size:18px;color:#D3C6BD;max-width:54ch;margin:28px 0 0}
+.hero-credito{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);margin:22px 0 0}
+.js #k1,.js #k2{opacity:0}
+
+/* logo central */
+.hero-logo{position:relative;width:min(58vw,360px);aspect-ratio:815/668}
+.hero-logo-img{width:100%;height:100%;object-fit:contain}
+/* o palco do canvas sai do fluxo e e movido por transform ate o header;
+   transform-origin no centro para a escala nao puxar o adesivo de lado */
+.hero-logo-palco{position:absolute;inset:0;transform-origin:50% 50%;
+  will-change:transform;pointer-events:none}
+.hero-logo-palco canvas{width:100%!important;height:100%!important;display:block}
+@media (max-width:540px){.hero-logo{width:min(72vw,300px)}}
+
+/* fundo em video; sem src fica so a camada escura sobre o fundo do site */
+.hero-video{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.hero-video-el{width:100%;height:100%;object-fit:cover;display:block}
+.hero-video-escurece{position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(23,19,19,.72),rgba(23,19,19,.86))}
+@media (prefers-reduced-motion:reduce){.hero-video-el{display:none}}
 .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--amarelo);margin:0 0 24px}
-h1{font-family:var(--display);font-weight:400;font-size:clamp(52px,10.5vw,124px);line-height:.86;
-  letter-spacing:.005em;text-transform:uppercase;margin:0 0 28px;max-width:13ch}
-.line{display:block;overflow:hidden}
-.line > span{display:block}
-.js .line > span{transform:translateY(110%)}
-.js #k1,.js #k2,.js #k3{opacity:0}
-.hero p.sub{font-size:19px;color:#D3C6BD;max-width:56ch;margin:0 0 34px}
 .ctas{display:flex;flex-wrap:wrap;gap:14px}
 .btn{position:relative;overflow:hidden;display:inline-block;font-family:var(--mono);font-size:13px;
   letter-spacing:.14em;text-transform:uppercase;padding:16px 28px;border:2px solid transparent;isolation:isolate}
@@ -228,7 +248,7 @@ footer{background:#0E0B0B;padding:48px 0 36px}
   .js .line > span{transform:none!important}
   .label::before{width:34px}
   blockquote::before{transform:scaleY(1)}
-  .hero canvas{display:none}
+  #grain{display:none}
 }
 
 /* --- compatibilidade next/image: o logo vira <Image>, a altura segue a largura --- */
@@ -326,20 +346,28 @@ section > .wrap{position:relative;z-index:1}
 
 
 /* ---- Colagem do hero ---- */
-.colagem{position:absolute;z-index:1;right:0;top:0;bottom:0;width:46%;pointer-events:none}
+.colagem{position:absolute;z-index:1;inset:0;pointer-events:none}
 .colagem .peca{position:absolute;margin:0;overflow:hidden;opacity:0;
-  box-shadow:0 18px 50px rgba(0,0,0,.5);
-  transform:translate(var(--mx,0),calc(var(--my,0) + 26px)) rotate(var(--rot,0deg));
+  box-shadow:0 14px 38px rgba(0,0,0,.5);
+  transform:translate(var(--mx,0),calc(var(--my,0) + 22px)) rotate(var(--rot,0deg));
   transition:opacity .9s var(--ease) var(--atraso,0ms),transform .9s var(--ease) var(--atraso,0ms)}
 .colagem.pronta .peca{opacity:1;transform:translate(var(--mx,0),var(--my,0)) rotate(var(--rot,0deg))}
 .colagem .peca img{object-fit:cover}
-/* fita crepe, igual à do portfólio */
-.colagem .fita{position:absolute;z-index:3;left:50%;top:-11px;width:96px;height:26px;
-  margin-left:-48px;background:rgba(248,239,232,.82);transform:rotate(-3deg)}
-.colagem .p1{--rot:3deg;--atraso:120ms;right:4%;top:14%;width:236px;height:330px}
-.colagem .p2{--rot:-5deg;--atraso:260ms;right:32%;top:46%;width:212px;height:170px}
-.colagem .p3{--rot:6deg;--atraso:400ms;right:2%;bottom:6%;width:200px;height:140px}
-@media (max-width:1100px){.colagem{display:none}}
+.colagem .fita{position:absolute;z-index:3;left:50%;top:-9px;width:72px;height:20px;
+  margin-left:-36px;background:rgba(248,239,232,.8);transform:rotate(-3deg)}
+/* esquerda */
+.colagem .p1{--rot:-4deg;--atraso:120ms;left:3%;top:16%;width:168px;height:224px}
+.colagem .p2{--rot:5deg;--atraso:330ms;left:8%;bottom:10%;width:146px;height:190px}
+/* direita */
+.colagem .p3{--rot:4deg;--atraso:220ms;right:3%;top:13%;width:168px;height:224px}
+.colagem .p4{--rot:-5deg;--atraso:430ms;right:7%;bottom:12%;width:152px;height:104px}
+@media (max-width:1240px){
+  .colagem .p1,.colagem .p3{width:132px;height:176px}
+  .colagem .p2{width:118px;height:154px}
+  .colagem .p4{width:124px;height:86px}
+}
+/* no celular a logo manda: a colagem sai */
+@media (max-width:900px){.colagem{display:none}}
 
 /* ======================================================================
    v4 — mural.md item 3: gerador de tags e boombox.
@@ -696,8 +724,8 @@ section > .wrap{position:relative;z-index:1}
   color:var(--muted);font-weight:400;margin:0 0 12px;
   padding-bottom:8px;border-bottom:1px solid var(--rule)}
 .lng-secao p{margin:0;color:#CBBDB4;font-size:16px;line-height:1.6}
-.lng-todo{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
-  color:#6B615C;margin:0}
+.lng-provisorio{display:inline-block;margin-left:10px;font-style:normal;font-size:10px;
+  letter-spacing:.14em;color:var(--carvao);background:var(--amarelo);padding:3px 7px}
 
 .lng-eventos{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
 .lng-eventos li{border-left:3px solid var(--p,var(--vermelho));padding-left:12px}
@@ -705,13 +733,13 @@ section > .wrap{position:relative;z-index:1}
 .lng-eventos span{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;
   text-transform:uppercase;color:var(--muted);margin-top:4px}
 
+.lng-corpo > .lng-galeria:first-child{margin-top:0}
 .lng-galeria{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
 @media (max-width:540px){.lng-galeria{grid-template-columns:1fr}}
 .lng-galeria figure{margin:0}
 .lng-galeria img{width:100%;height:auto;display:block;background:var(--carvao-2)}
 .lng-galeria figcaption{font-family:var(--mono);font-size:10px;letter-spacing:.06em;
   color:#6B615C;margin-top:8px;line-height:1.5}
-.lng-pend{margin-top:8px}
 
 @media (prefers-reduced-motion:reduce){
   .lng-img{transition:none;scale:1}

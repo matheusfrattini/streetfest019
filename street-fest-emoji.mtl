@@ -1,0 +1,19 @@
+# Exported by three-d-stage
+newmtl sticker_edge
+Kd 0.0242 0.0252 0.0331
+Ks 0.2000 0.2000 0.2000
+Ns 40
+d 1.0000
+
+newmtl sticker_front
+Kd 1.0000 1.0000 1.0000
+Ks 0.2000 0.2000 0.2000
+Ns 80
+d 1.0000
+
+newmtl sticker_back
+Kd 1.0000 1.0000 1.0000
+Ks 0.2000 0.2000 0.2000
+Ns 80
+d 1.0000
+
