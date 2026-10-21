@@ -1,27 +1,39 @@
 import type { Metadata } from "next";
 import type { CSSProperties } from "react";
-import EventsTabs from "@/components/EventsTabs";
+import FrentesLinguagens from "@/components/FrentesLinguagens";
 import Titulo from "@/components/Titulo";
-import { eventos } from "@/data/eventos";
+import { frentes } from "@/data/frentes";
 
 export const metadata: Metadata = {
   title: "Eventos — Street Fest 019",
 };
 
-/* A divisão próximo/passado vem da data atual: revalida de hora em hora. */
-export const revalidate = 3600;
-
 export default function EventosPage() {
   return (
-    <section id="eventos" style={{ "--acc": "var(--roxo)" } as CSSProperties}>
-      <div className="wrap">
-        {/* TODO: headline definitiva */}
-        <p className="label" data-reveal>
-          Eventos
-        </p>
-        <Titulo>Eventos</Titulo>
-        <EventsTabs eventos={eventos} />
-      </div>
-    </section>
+    <>
+      {/* Mapa: o bairro.js entra aqui quando o runtime HL estiver disponível.
+          Até lá o espaço fica reservado e marcado, sem placeholder falso. */}
+      <section id="mapa" style={{ "--acc": "var(--vermelho)" } as CSSProperties}>
+        <div className="wrap">
+          <p className="label" data-reveal>
+            Mapa
+          </p>
+          <Titulo>Onde a rua virou nossa</Titulo>
+          <p className="pend" data-reveal>
+            Mapa das 15 quadras (bairro.js) entra aqui — pendente do runtime HL/hairline.
+          </p>
+        </div>
+      </section>
+
+      <section id="frentes" style={{ "--acc": "var(--roxo)" } as CSSProperties}>
+        <div className="wrap">
+          <p className="label" data-reveal>
+            Linguagens
+          </p>
+          <Titulo>Dez jeitos de ocupar a rua</Titulo>
+          <FrentesLinguagens frentes={frentes} />
+        </div>
+      </section>
+    </>
   );
 }

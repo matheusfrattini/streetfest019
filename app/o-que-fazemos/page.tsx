@@ -3,12 +3,8 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import CategoryGalleryCard from "@/components/CategoryGalleryCard";
 import Titulo from "@/components/Titulo";
-import EventPreviewCard from "@/components/EventPreviewCard";
 import NumStat from "@/components/NumStat";
 import PilarCard from "@/components/PilarCard";
-import ProjectShowcaseCard from "@/components/ProjectShowcaseCard";
-import { proximos } from "@/data/eventos";
-import { frentes } from "@/data/frentes";
 import { impacto } from "@/data/impacto";
 import { pilares } from "@/data/pilares";
 
@@ -16,12 +12,7 @@ export const metadata: Metadata = {
   title: "O Que Fazemos — Street Fest 019",
 };
 
-/* A divisão próximo/passado vem da data atual: revalida de hora em hora. */
-export const revalidate = 3600;
-
 export default function OQueFazemosPage() {
-  const agenda = proximos().slice(0, 3);
-
   return (
     <>
       {/* 1 — Pilares (mockup) */}
@@ -59,60 +50,41 @@ export default function OQueFazemosPage() {
         </div>
       </section>
 
-      {/* 3 — Nossos Projetos */}
+      {/* 3 — As linguagens agora vivem em /eventos#frentes */}
       <section id="projetos" style={{ "--acc": "var(--amarelo)" } as CSSProperties}>
         <div className="wrap">
-          {/* TODO: headline definitiva */}
           <p className="label" data-reveal>
-            Nossos Projetos
+            Linguagens
           </p>
-          <Titulo>Nossos Projetos</Titulo>
-          <div className="projetos">
-            {frentes.map((frente, i) => (
-              <ProjectShowcaseCard
-                key={frente.slug}
-                frente={frente}
-                index={i}
-                cor={pilares[i % pilares.length].cor}
-              />
-            ))}
+          <Titulo>Dez jeitos de ocupar a rua</Titulo>
+          <p className="lede" data-reveal>
+            Skate, basquete, breaking, graffiti, DJ, MC, fotografia e audiovisual, rock, video
+            games e quadrinhos — cada uma com sua própria página.
+          </p>
+          <div className="ctas" style={{ marginTop: 28 }} data-reveal>
+            <Link className="btn btn-ghost" href="/eventos#frentes">
+              <span>Ver as linguagens</span>
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* 4 — Próximos Eventos */}
+      {/* 4 — Agenda: pendente da lista real dos 15 eventos */}
       <section id="proximos-eventos" style={{ "--acc": "var(--vermelho)" } as CSSProperties}>
         <div className="wrap">
-          {/* TODO: headline definitiva */}
           <p className="label" data-reveal>
-            Próximos Eventos
+            Agenda
           </p>
-          <Titulo>Próximos Eventos</Titulo>
-          {agenda.length > 0 ? (
-            <>
-              <div className="ev-grid">
-                {agenda.map((evento, i) => (
-                  <EventPreviewCard key={evento.slug} evento={evento} index={i} />
-                ))}
-              </div>
-              <div className="ctas" style={{ marginTop: 28 }} data-reveal>
-                <Link className="btn btn-ghost" href="/eventos">
-                  <span>Ver todos os eventos</span>
-                </Link>
-              </div>
-            </>
-          ) : (
-            <>
-              <p className="lede" data-reveal>
-                Acompanhe nossa agenda
-              </p>
-              <div className="ctas" style={{ marginTop: 28 }} data-reveal>
-                <Link className="btn btn-ghost" href="/eventos">
-                  <span>Ver todos os eventos</span>
-                </Link>
-              </div>
-            </>
-          )}
+          <Titulo>Onde a gente vai estar</Titulo>
+          <div className="ctas" style={{ marginTop: 28 }} data-reveal>
+            <Link className="btn btn-ghost" href="/eventos">
+              <span>Ver o mapa dos eventos</span>
+            </Link>
+          </div>
+          <p className="pend" data-reveal>
+            TODO organizadores — a lista dos 15 eventos (nome, data, local, descrição) ainda não
+            chegou.
+          </p>
         </div>
       </section>
 
