@@ -148,8 +148,6 @@ function Modal({
     };
   }, [onFechar, devolveFoco]);
 
-  const pendente = !f.resumo && !f.comoETrabalhada && !f.oQueFoiFeito && f.eventosRealizados.length === 0;
-
   const conteudo = (
     <motion.div
       className="lng-fundo"
@@ -177,58 +175,60 @@ function Modal({
         </button>
 
         <header className="lng-cab">
-          <p className="lng-kicker">Linguagem</p>
+          <p className="lng-kicker">
+            Linguagem
+            {/* TODO: remover selo antes de publicar no domínio final.
+                Ele existe para o texto de espera não passar por definitivo
+                em preview mandado para os organizadores. */}
+            {f.provisorio && <i className="lng-provisorio">texto provisório</i>}
+          </p>
           <h3 id={`lng-${f.slug}-nome`}>{f.nome}</h3>
           {f.resumo && <p className="lng-resumo">{f.resumo}</p>}
         </header>
 
         <div className="lng-corpo">
-          <Secao titulo="Como é trabalhada">
-            {f.comoETrabalhada ?? <Pendente campo="como é trabalhada" />}
-          </Secao>
+          {/* Seção só existe se tiver conteúdo: sem título órfão, sem "TODO" na tela. */}
+          {f.comoETrabalhada && (
+            <Secao titulo="Como é trabalhada">
+              <p>{f.comoETrabalhada}</p>
+            </Secao>
+          )}
 
-          <Secao titulo="Eventos realizados">
-            {f.eventosRealizados.length > 0 ? (
+          {f.eventosRealizados.length > 0 && (
+            <Secao titulo="Eventos realizados">
               <ul className="lng-eventos">
                 {f.eventosRealizados.map((e) => (
                   <li key={e.nome}>
                     <b>{e.nome}</b>
-                    <span>
-                      {e.data} · {e.local}
-                    </span>
+                    <span>{e.local ? `${e.data} · ${e.local}` : e.data}</span>
                   </li>
                 ))}
               </ul>
-            ) : (
-              <Pendente campo="lista de eventos" />
-            )}
-          </Secao>
-
-          <Secao titulo="O que foi feito">
-            {f.oQueFoiFeito ?? <Pendente campo="o que foi feito" />}
-            <div className="lng-galeria">
-              {f.fotos.map((foto) => (
-                <figure key={foto.src}>
-                  <Image
-                    src={foto.src}
-                    alt={foto.alt}
-                    width={foto.largura}
-                    height={foto.altura}
-                    sizes="(max-width:900px) 92vw, 44vw"
-                    loading="lazy"
-                  />
-                  <figcaption>{foto.alt}</figcaption>
-                </figure>
-              ))}
-            </div>
-          </Secao>
-
-          {pendente && (
-            <p className="pend lng-pend">
-              TODO organizadores — falta o texto desta linguagem: resumo, como é trabalhada,
-              eventos realizados e o que foi feito.
-            </p>
+            </Secao>
           )}
+
+          {f.oQueFoiFeito && (
+            <Secao titulo="O que foi feito">
+              <p>{f.oQueFoiFeito}</p>
+            </Secao>
+          )}
+
+          {/* A galeria vem sempre — ela própria é o conteúdo, não precisa de título. */}
+          <div className="lng-galeria">
+            {f.fotos.map((foto) => (
+              <figure key={foto.src}>
+                <Image
+                  src={foto.src}
+                  alt={foto.alt}
+                  width={foto.largura}
+                  height={foto.altura}
+                  sizes="(max-width:900px) 92vw, 44vw"
+                  loading="lazy"
+                />
+                <figcaption>{foto.alt}</figcaption>
+              </figure>
+            ))}
+          </div>
         </div>
       </motion.div>
     </motion.div>
@@ -245,8 +245,4 @@ function Secao({ titulo, children }: { titulo: string; children: React.ReactNode
       {children}
     </section>
   );
-}
-
-function Pendente({ campo }: { campo: string }) {
-  return <p className="lng-todo">TODO organizadores · {campo}</p>;
 }
