@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import type { CSSProperties } from "react";
+import dynamic from "next/dynamic";
 import FrentesLinguagens from "@/components/FrentesLinguagens";
 import Titulo from "@/components/Titulo";
 import { frentes } from "@/data/frentes";
+
+/* O mapa mexe no DOM direto: nada de SSR. */
+const MapaEventos = dynamic(() => import("@/components/mapa/MapaEventos"), { ssr: false });
 
 export const metadata: Metadata = {
   title: "Eventos — Street Fest 019",
@@ -11,17 +15,13 @@ export const metadata: Metadata = {
 export default function EventosPage() {
   return (
     <>
-      {/* Mapa: o bairro.js entra aqui quando o runtime HL estiver disponível.
-          Até lá o espaço fica reservado e marcado, sem placeholder falso. */}
       <section id="mapa" style={{ "--acc": "var(--vermelho)" } as CSSProperties}>
         <div className="wrap">
           <p className="label" data-reveal>
             Mapa
           </p>
           <Titulo>Onde a rua virou nossa</Titulo>
-          <p className="pend" data-reveal>
-            Mapa das 15 quadras (bairro.js) entra aqui — pendente do runtime HL/hairline.
-          </p>
+          <MapaEventos />
         </div>
       </section>
 

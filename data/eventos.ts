@@ -82,7 +82,51 @@ export const eventos: Evento[] = [
     local: "Estação Cultura",
   },
   ...Array.from({ length: 11 }, (_, i) => vazio(i + 5)),
-];
+].map(aplicarFake);
+
+/* ---------------------------------------------------------------------
+   EVENTO FALSO, SÓ EM DESENVOLVIMENTO.
+
+   Existe porque nenhum evento real tem ainda descrição, foto ou vídeo, e
+   sem isso não dá para ver o modal do mapa funcionando. O `===` com
+   NODE_ENV é trocado por uma constante no build, então em produção isto
+   vira `if (false)` e o bundler apaga o bloco inteiro — nada do fake entra
+   no export. Conferido no out/.
+
+   Apagar quando os dados reais chegarem.
+   --------------------------------------------------------------------- */
+function aplicarFake(e: Evento): Evento {
+  if (process.env.NODE_ENV !== "development" || e.numero !== 8) return e;
+  return {
+    ...e,
+    nome: "[FAKE DEV] Ocupação na praça",
+    data: "2025-09-20",
+    horario: "15:00",
+    local: "[FAKE DEV] Praça de teste",
+    descricao:
+      "[FAKE DEV] Registro inventado só para ver o modal do mapa com conteúdo. Não existe, não vai para o ar e some no build de produção.",
+    fotos: [
+      {
+        src: "/fotos/linguagens/skate-1.webp",
+        alt: "Skatista descendo o bowl com o banner do Street Fest ao fundo",
+        largura: 1600,
+        altura: 2400,
+      },
+      {
+        src: "/fotos/linguagens/breaking-2.webp",
+        alt: "Dois b-boys em movimento de chão no asfalto",
+        largura: 1600,
+        altura: 1067,
+      },
+    ],
+    video: null,
+  };
+}
+
+/** O modal só abre com conteúdo de verdade: nome e data sozinhos não bastam. */
+export function temConteudo(e: Evento) {
+  return Boolean(e.descricao || e.fotos.length > 0 || e.video);
+}
 
 export function eventoPorNumero(numero: number) {
   return eventos.find((e) => e.numero === numero);
