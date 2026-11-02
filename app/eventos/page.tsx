@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import type { CSSProperties } from "react";
 import dynamic from "next/dynamic";
-import FrentesLinguagens from "@/components/FrentesLinguagens";
+import AgendaCalendario from "@/components/AgendaCalendario";
 import Titulo from "@/components/Titulo";
-import { frentes } from "@/data/frentes";
 
 /* O mapa mexe no DOM direto: nada de SSR. */
 const MapaEventos = dynamic(() => import("@/components/mapa/MapaEventos"), { ssr: false });
@@ -25,13 +24,13 @@ export default function EventosPage() {
         </div>
       </section>
 
-      <section id="frentes" style={{ "--acc": "var(--roxo)" } as CSSProperties}>
+      <section id="agenda" style={{ "--acc": "var(--vermelho)" } as CSSProperties}>
         <div className="wrap">
           <p className="label" data-reveal>
-            Linguagens
+            Agenda
           </p>
-          <Titulo>Dez jeitos de ocupar a rua</Titulo>
-          <FrentesLinguagens frentes={frentes} />
+          <Titulo>Próximas datas</Titulo>
+          <AgendaCalendario />
         </div>
       </section>
     </>

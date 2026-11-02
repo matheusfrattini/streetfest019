@@ -57,20 +57,29 @@ export default function OrganizadoresVinil({
               className="vinil-capa-btn"
               style={{ "--p": o.cor } as CSSProperties}
             >
+              {/* Capa no modelo de mockup de vinil: faixa escura com o nome
+                  na vertical, a foto ao lado, e o disco saindo pela direita. */}
               <span className="vinil-album">
-                {/* borda do disco espiando atrás da capa no hover */}
-                <span className="vinil-borda" aria-hidden="true" />
-                <Foto
-                  src={o.foto}
-                  alt={`Foto de ${o.nome}`}
-                  cor={o.cor}
-                  index={i}
-                  className="vinil-capa"
-                  legenda="foto pendente"
-                />
+                <span className="vinil-album-disco" aria-hidden="true">
+                  <Disco cor={o.cor} girando={false} />
+                </span>
+                <span className="vinil-manga">
+                  <span className="vinil-manga-faixa" aria-hidden="true">
+                    <span className="vinil-manga-nome">{o.nome}</span>
+                  </span>
+                  <span className="vinil-manga-foto">
+                    <Foto
+                      src={o.foto}
+                      alt={`Foto de ${o.nome}`}
+                      cor={o.cor}
+                      index={i}
+                      className="vinil-capa"
+                      legenda="foto pendente"
+                    />
+                  </span>
+                </span>
               </span>
-              <b>{o.nome}</b>
-              {o.papel && <span>{o.papel}</span>}
+              {o.papel && <span className="vinil-papel-card">{o.papel}</span>}
             </button>
           </li>
         ))}

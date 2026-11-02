@@ -100,7 +100,8 @@ function aplicarFake(e: Evento): Evento {
   return {
     ...e,
     nome: "[FAKE DEV] Ocupação na praça",
-    data: "2025-09-20",
+    /* futura de propósito: é o que faz a agenda ter um dia marcado em dev */
+    data: "2026-11-21",
     horario: "15:00",
     local: "[FAKE DEV] Praça de teste",
     descricao:
@@ -126,6 +127,20 @@ function aplicarFake(e: Evento): Evento {
 /** O modal só abre com conteúdo de verdade: nome e data sozinhos não bastam. */
 export function temConteudo(e: Evento) {
   return Boolean(e.descricao || e.fotos.length > 0 || e.video);
+}
+
+/** Data local de hoje em ISO (AAAA-MM-DD). Local, não UTC: perto da meia-noite
+    o toISOString() pularia para o dia seguinte. */
+export function hojeISO(agora: Date = new Date()) {
+  const p = (n: number) => String(n).padStart(2, "0");
+  return `${agora.getFullYear()}-${p(agora.getMonth() + 1)}-${p(agora.getDate())}`;
+}
+
+/** Eventos com data a partir de hoje, do mais próximo ao mais distante. */
+export function proximosEventos(hoje = hojeISO()) {
+  return eventos
+    .filter((e): e is Evento & { data: string } => !!e.data && e.data >= hoje)
+    .sort((a, b) => a.data.localeCompare(b.data));
 }
 
 export function eventoPorNumero(numero: number) {
