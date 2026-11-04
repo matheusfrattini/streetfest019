@@ -19,6 +19,7 @@ export default function Boombox() {
   const ctxRef = useRef<AudioContext | null>(null);
   const beatRef = useRef<Beat | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const caixa = useRef<HTMLDivElement>(null);
 
   const faixa = faixas[atual];
   const tocavel = Boolean(faixa.arquivo || faixa.sintetizado);
@@ -33,6 +34,39 @@ export default function Boombox() {
   }
 
   useEffect(() => pararTudo, []);
+
+  /* A caixa desce fixa com a página até o início do rodapé e para ali: quando
+     o rodapé entra na tela, ela sobe o mesmo tanto, sem nunca cobri-lo. O
+     ResizeObserver cobre troca de página e imagem que muda a altura sem rolar. */
+  useEffect(() => {
+    const el = caixa.current;
+    const rodape = document.querySelector("footer");
+    if (!el || !rodape) return;
+
+    let raf = 0;
+    function aplicar() {
+      raf = 0;
+      const invade = Math.max(0, Math.round(window.innerHeight - rodape!.getBoundingClientRect().top));
+      el!.style.transform = invade ? `translateY(${-invade}px)` : "";
+      /* o painel aberto usa isto para caber no espaço que sobrou acima */
+      el!.style.setProperty("--bb-sobe", `${invade}px`);
+    }
+    function agendar() {
+      if (!raf) raf = requestAnimationFrame(aplicar);
+    }
+
+    aplicar();
+    window.addEventListener("scroll", agendar, { passive: true });
+    window.addEventListener("resize", agendar);
+    const ro = new ResizeObserver(agendar);
+    ro.observe(document.body);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", agendar);
+      window.removeEventListener("resize", agendar);
+      ro.disconnect();
+    };
+  }, []);
 
   /* Trocar de faixa com o som ligado já emenda na nova. */
   useEffect(() => {
@@ -67,7 +101,7 @@ export default function Boombox() {
   }, [volume]);
 
   return (
-    <div className={"boombox" + (aberto ? " aberto" : "") + (tocando ? " tocando" : "")}>
+    <div ref={caixa} className={"boombox" + (aberto ? " aberto" : "") + (tocando ? " tocando" : "")}>
       <button
         type="button"
         className="bb-aparelho"

@@ -39,8 +39,6 @@ p{margin:0 0 16px;max-width:68ch}
   background:linear-gradient(90deg,var(--vermelho),var(--amarelo));z-index:100}
 
 /* ============ MOCK BANNER ============ */
-.mock{background:var(--amarelo);color:var(--carvao);font-family:var(--mono);font-size:12px;
-  letter-spacing:.1em;text-transform:uppercase;padding:10px 0;text-align:center}
 
 /* ============ HEADER ============ */
 header{position:sticky;top:0;z-index:60;border-bottom:1px solid transparent;
@@ -50,7 +48,7 @@ header.stuck{background:rgba(23,19,19,.92);backdrop-filter:blur(10px);border-bot
   transition:padding .35s var(--ease)}
 header.stuck .bar{padding:10px 0}
 .lockup{display:flex;align-items:center;gap:14px}
-.lockup img{width:48px;height:48px;display:block;transition:width .35s var(--ease),height .35s var(--ease)}
+.lockup img{width:48px;height:48px;object-fit:contain;display:block;transition:width .35s var(--ease),height .35s var(--ease)}
 header.stuck .lockup img{width:38px;height:38px}
 .lockup .nome{font-family:var(--display);font-size:19px;line-height:.95;letter-spacing:.02em;text-transform:uppercase}
 nav{display:flex;gap:26px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
@@ -74,28 +72,29 @@ nav a:hover::after,nav a:focus-visible::after{transform:scaleX(1)}
    lateral nunca encostar no que e da logo. */
 .hero-centro{display:flex;flex-direction:column;align-items:center;text-align:center;
   max-width:720px}
-.hero-centro .kicker{margin:0 0 20px}
+.hero-centro .kicker{margin:18px 0 0}
 .hero-texto{font-size:18px;color:#D3C6BD;max-width:54ch;margin:28px 0 0}
 .hero-credito{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--muted);margin:22px 0 0}
 .js #k1,.js #k2{opacity:0}
 
 /* logo central */
-.hero-logo{position:relative;width:min(58vw,360px);aspect-ratio:815/668}
+.hero-logo{position:relative;width:min(40vw,180px);aspect-ratio:640/528}
 .hero-logo-img{width:100%;height:100%;object-fit:contain}
 /* o palco do canvas sai do fluxo e e movido por transform ate o header;
    transform-origin no centro para a escala nao puxar o adesivo de lado */
 .hero-logo-palco{position:absolute;inset:0;transform-origin:50% 50%;
   will-change:transform;pointer-events:none}
 .hero-logo-palco canvas{width:100%!important;height:100%!important;display:block}
-@media (max-width:540px){.hero-logo{width:min(72vw,300px)}}
+@media (max-width:540px){.hero-logo{width:min(40vw,150px)}}
 
 /* fundo em video; sem src fica so a camada escura sobre o fundo do site */
 .hero-video{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.hero-video{background-size:cover;background-position:center}
+.hero-video picture{position:absolute;inset:0}
 .hero-video-el{width:100%;height:100%;object-fit:cover;display:block}
 .hero-video-escurece{position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(23,19,19,.72),rgba(23,19,19,.86))}
-@media (prefers-reduced-motion:reduce){.hero-video-el{display:none}}
+  background:linear-gradient(180deg,rgba(23,19,19,.5),rgba(23,19,19,.68))}
 .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--amarelo);margin:0 0 24px}
 .ctas{display:flex;flex-wrap:wrap;gap:14px}
@@ -403,6 +402,14 @@ section > .wrap{position:relative;z-index:1}
   transition:transform .3s var(--ease),border-color .3s var(--ease)}
 .lata:hover{transform:translateY(-3px)}
 .lata.on{border-color:var(--off);transform:translateY(-3px)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{min-height:40px;padding:8px 14px;background:var(--carvao-2);border:2px solid var(--rule);
+  color:var(--off);font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;cursor:pointer;
+  transition:transform .3s var(--ease),border-color .3s var(--ease),background .3s var(--ease),color .3s var(--ease)}
+.chip:hover{transform:translateY(-3px);border-color:var(--off)}
+.chip.on{background:var(--off);border-color:var(--off);color:var(--carvao)}
+.chip:focus-visible,.lata:focus-visible{outline:3px solid var(--amarelo);outline-offset:3px}
 .tagger-acoes{margin-top:4px}
 .tagger-aviso{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
   color:var(--amarelo);margin:0;min-height:18px}
@@ -476,7 +483,11 @@ section > .wrap{position:relative;z-index:1}
 
 @media (max-width:900px){
   .boombox{left:16px;bottom:16px}
-  .bb-painel{position:fixed;left:16px;right:16px;bottom:118px;width:auto}
+  /* absolute, não fixed: o transform que para a caixa no rodapé viraria a
+     referência do fixed. Assim o painel sobe junto, sempre acima da caixa. */
+  .bb-painel{position:absolute;left:0;bottom:calc(100% + 12px);width:calc(100vw - 32px);
+    max-height:calc(100vh - 134px - var(--bb-sobe,0px));
+    max-height:calc(100dvh - 134px - var(--bb-sobe,0px));overflow-y:auto}
 }
 @media (prefers-reduced-motion:reduce){
   .bb-corpo{transform:none}

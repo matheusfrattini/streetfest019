@@ -36,6 +36,11 @@ const FUNDOS = [
   { id: "transparente", nome: "Transparente" },
 ];
 
+const ACABAMENTOS = [
+  { id: "escorrido", nome: "Escorrido" },
+  { id: "respingo", nome: "Respingo" },
+];
+
 /* PRNG por semente: a mesma tag gera sempre o mesmo respingo, então o preview
    não "treme" a cada tecla digitada. */
 function prng(semente: number) {
@@ -58,8 +63,7 @@ export default function GeradorDeTags() {
   const [estilo, setEstilo] = useState(ESTILOS[0].id);
   const [cor, setCor] = useState(CORES[0].hex);
   const [fundo, setFundo] = useState(FUNDOS[0].id);
-  const [pingos, setPingos] = useState(true);
-  const [respingo, setRespingo] = useState(true);
+  const [acabamento, setAcabamento] = useState(ACABAMENTOS[0].id);
   const [fontesProntas, setFontesProntas] = useState(false);
   const [aviso, setAviso] = useState<string | null>(null);
 
@@ -144,7 +148,7 @@ export default function GeradorDeTags() {
     const meiaLarg = m.width / 2;
 
     /* respingo de lata atrás do texto */
-    if (respingo) {
+    if (acabamento === "respingo") {
       ctx.save();
       ctx.fillStyle = cor;
       for (let i = 0; i < 260; i++) {
@@ -162,7 +166,7 @@ export default function GeradorDeTags() {
     }
 
     /* pingos de tinta escorrendo, ancorados na base das letras */
-    if (pingos) {
+    if (acabamento === "escorrido") {
       ctx.fillStyle = cor;
       const quantos = 3 + Math.floor(rnd() * 3);
       for (let i = 0; i < quantos; i++) {
@@ -199,17 +203,6 @@ export default function GeradorDeTags() {
     ctx.fillStyle = cor;
     ctx.fillText(tag, 0, 0);
 
-    /* brilho: risco claro no topo das letras */
-    ctx.save();
-    ctx.globalAlpha = 0.45;
-    ctx.strokeStyle = "#F8EFE8";
-    ctx.lineWidth = Math.max(2, tam / 90);
-    ctx.beginPath();
-    ctx.moveTo(-meiaLarg * 0.72, -tam * 0.26);
-    ctx.lineTo(-meiaLarg * 0.18, -tam * 0.31);
-    ctx.stroke();
-    ctx.restore();
-
     ctx.restore();
 
     /* ---- assinatura do projeto ---- */
@@ -221,7 +214,7 @@ export default function GeradorDeTags() {
     ctx.textBaseline = "alphabetic";
     ctx.fillStyle = fundo === "transparente" ? "#171313" : "rgba(248,239,232,.65)";
     ctx.fillText("STREET FEST 019", LARGURA - 40, ALTURA - 36);
-  }, [texto, estilo, cor, fundo, pingos, respingo]);
+  }, [texto, estilo, cor, fundo, acabamento]);
 
   useEffect(() => {
     if (!fontesProntas) return;
@@ -355,22 +348,17 @@ export default function GeradorDeTags() {
         <fieldset className="tagger-grupo">
           <legend>Acabamento</legend>
           <div className="chips">
-            <button
-              type="button"
-              className={"chip" + (pingos ? " on" : "")}
-              aria-pressed={pingos}
-              onClick={() => setPingos((v) => !v)}
-            >
-              Escorrido
-            </button>
-            <button
-              type="button"
-              className={"chip" + (respingo ? " on" : "")}
-              aria-pressed={respingo}
-              onClick={() => setRespingo((v) => !v)}
-            >
-              Respingo
-            </button>
+            {ACABAMENTOS.map((a) => (
+              <button
+                key={a.id}
+                type="button"
+                className={"chip" + (acabamento === a.id ? " on" : "")}
+                aria-pressed={acabamento === a.id}
+                onClick={() => setAcabamento(a.id)}
+              >
+                {a.nome}
+              </button>
+            ))}
           </div>
         </fieldset>
 

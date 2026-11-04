@@ -28,7 +28,7 @@ export default function Header() {
     <header id="hd" className={stuck ? "stuck" : undefined}>
       <div className="wrap bar">
         <Link className="lockup" href="/">
-          <Image src="/logo.jpg" alt="" width={96} height={96} priority />
+          <Image src="/macaco-escuro.webp" alt="" width={640} height={528} priority />
           <span className="nome">
             Street
             <br />

@@ -51,17 +51,17 @@ export default function Hero() {
 
   return (
     <section className="hero" ref={root}>
-      <HeroVideo src={home.video.src} poster={home.video.poster} />
+      <HeroVideo {...home.video} />
       <HeroCanvas />
       <div className="glow" aria-hidden="true" />
       <HeroColagem />
 
       <div className="wrap hero-centro">
+        <HeroLogo3D />
+
         <p className="kicker" id="k1">
           {home.kicker}
         </p>
-
-        <HeroLogo3D />
 
         <p className="hero-texto" id="k2">
           {home.texto}

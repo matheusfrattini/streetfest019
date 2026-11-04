@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="wrap">
         <div className="foot">
           <div className="lockup">
-            <Image src="/logo.jpg" alt="" width={84} height={84} />
+            <Image src="/macaco-escuro.webp" alt="" width={640} height={528} />
             <span className="nome">
               Street
               <br />

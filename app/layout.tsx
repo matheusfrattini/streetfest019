@@ -10,7 +10,6 @@ import {
 import Boombox from "@/components/Boombox";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import MockBanner from "@/components/MockBanner";
 import Parallax from "@/components/Parallax";
 import ProgressBar from "@/components/ProgressBar";
 import RevealOnScroll from "@/components/RevealOnScroll";
@@ -78,7 +77,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <ProgressBar />
-        <MockBanner />
         <Header />
         <main id="topo">{children}</main>
         <Footer />

@@ -10,11 +10,11 @@ export const home = {
      desenha a linha — nada de placeholder no lugar.
      TODO organizadores: texto oficial do crédito. */
   creditoApoio: null as string | null,
-  /* Vídeo de fundo do hero. Os dois arquivos ainda não existem; enquanto
-     `src` for null, o <HeroVideo> mantém só o fundo escuro.
-     TODO: videoteca do projeto. */
+  /* Fundo animado do hero: GIF gerado a partir de capaSite.mp4 (o original
+     fica fora do site). O celular recebe uma versão menor. */
   video: {
-    src: null as string | null,
-    poster: null as string | null,
+    src: "/video/capa-site.gif",
+    srcCelular: "/video/capa-site-celular.gif",
+    poster: "/video/capa-site-poster.jpg",
   },
 };
