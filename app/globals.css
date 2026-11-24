@@ -2,16 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-/* CSS do mockup (reference/home.html) copiado sem alteracoes visuais.
-   Unicas mudancas: as familias vem das variaveis do next/font. */
+/* CSS do mockup (reference/home.html), as familias vem do next/font.
+
+   O site agora é claro. Os nomes dos tokens ficaram, mas o papel inverteu:
+   --carvao (e -2, -3) é o FUNDO, em off-white e dois tons de areia, e --off
+   é o TEXTO, em carvão. Onde uma cor precisa ser a mesma em qualquer tema
+   (texto sobre vermelho, faixa preta da capa do disco) ela vai literal. */
 
 :root{
-  --carvao:#171313;
-  --carvao-2:#221C1C;
-  --carvao-3:#2C2424;
-  --off:#F8EFE8;
-  --muted:#A2948C;
-  --rule:#3A3030;
+  --carvao:#F8EFE8;
+  --carvao-2:#EFE4DB;
+  --carvao-3:#E5D8CD;
+  --off:#242021;
+  --muted:#6B615C;
+  --rule:#D8CABF;
   --vermelho:#E42313;
   --amarelo:#FEB101;
   --verde:#006A54;
@@ -31,7 +35,7 @@ body{
 }
 .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
 a{color:inherit;text-decoration:none}
-:focus-visible{outline:3px solid var(--amarelo);outline-offset:3px}
+:focus-visible{outline:3px solid var(--off);outline-offset:3px}
 p{margin:0 0 16px;max-width:68ch}
 
 /* ============ PROGRESSO ============ */
@@ -41,9 +45,15 @@ p{margin:0 0 16px;max-width:68ch}
 /* ============ MOCK BANNER ============ */
 
 /* ============ HEADER ============ */
+/* Header e rodapé ficam em carvão em todas as páginas. Em vez de reescrever
+   cada regra, os tokens voltam aos valores escuros só dentro deles: o que lá
+   dentro usa --carvao, --off, --muted ou --rule já sai certo, menu do celular
+   incluído. */
+header,footer{--carvao:#171313;--carvao-2:#221C1C;--carvao-3:#2C2424;--off:#F8EFE8;
+  --muted:#A2948C;--rule:#3A3030;background:var(--carvao);color:var(--off)}
 header{position:sticky;top:0;z-index:60;border-bottom:1px solid transparent;
   transition:background .35s var(--ease),border-color .35s var(--ease),backdrop-filter .35s}
-header.stuck{background:rgba(23,19,19,.92);backdrop-filter:blur(10px);border-bottom-color:var(--rule)}
+header.stuck{background:rgba(23,19,19,.94);backdrop-filter:blur(10px);border-bottom-color:var(--rule)}
 .bar{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:16px 0;
   transition:padding .35s var(--ease)}
 header.stuck .bar{padding:10px 0}
@@ -82,9 +92,12 @@ nav a:hover::after,nav a:focus-visible::after{transform:scaleX(1)}
 }
 
 /* ============ HERO ============ */
+/* O hero volta a ser carvão para o vídeo aparecer: os tokens voltam aos
+   valores escuros só aqui dentro, como no header e no rodapé. */
+.hero{--carvao:#171313;--carvao-2:#221C1C;--carvao-3:#2C2424;--off:#F8EFE8;
+  --muted:#A2948C;--rule:#3A3030;background:var(--carvao);color:var(--off)}
 .hero{position:relative;padding:72px 0 80px;border-bottom:6px solid var(--vermelho);
   overflow:hidden;min-height:min(86vh,760px);display:flex;align-items:center}
-#grain{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:.55}
 .hero .glow{position:absolute;inset:0;pointer-events:none;
   background:
     radial-gradient(58% 85% at 80% 26%, rgba(228,35,19,.26), transparent 68%),
@@ -103,11 +116,6 @@ nav a:hover::after,nav a:focus-visible::after{transform:scaleX(1)}
 /* logo central */
 .hero-logo{position:relative;width:min(40vw,180px);aspect-ratio:640/528}
 .hero-logo-img{width:100%;height:100%;object-fit:contain}
-/* o palco do canvas sai do fluxo e e movido por transform ate o header;
-   transform-origin no centro para a escala nao puxar o adesivo de lado */
-.hero-logo-palco{position:absolute;inset:0;transform-origin:50% 50%;
-  will-change:transform;pointer-events:none}
-.hero-logo-palco canvas{width:100%!important;height:100%!important;display:block}
 @media (max-width:540px){.hero-logo{width:min(40vw,150px)}}
 
 /* fundo em video; sem src fica so a camada escura sobre o fundo do site */
@@ -116,7 +124,7 @@ nav a:hover::after,nav a:focus-visible::after{transform:scaleX(1)}
 .hero-video picture{position:absolute;inset:0}
 .hero-video-el{width:100%;height:100%;object-fit:cover;display:block}
 .hero-video-escurece{position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(23,19,19,.5),rgba(23,19,19,.68))}
+  background:linear-gradient(180deg,rgba(23,19,19,.62),rgba(23,19,19,.8))}
 .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--amarelo);margin:0 0 24px}
 .ctas{display:flex;flex-wrap:wrap;gap:14px}
@@ -126,7 +134,7 @@ nav a:hover::after,nav a:focus-visible::after{transform:scaleX(1)}
 .btn::before{content:"";position:absolute;inset:0;z-index:1;transform:translateY(101%);
   transition:transform .4s var(--ease)}
 .btn:hover::before,.btn:focus-visible::before{transform:translateY(0)}
-.btn-primary{background:var(--vermelho);color:var(--off)}
+.btn-primary{background:var(--vermelho);color:#F8EFE8}
 .btn-primary::before{background:var(--carvao)}
 .btn-ghost{border-color:var(--rule);color:var(--off)}
 .btn-ghost::before{background:var(--off)}
@@ -135,12 +143,12 @@ nav a:hover::after,nav a:focus-visible::after{transform:scaleX(1)}
 .btn-ghost:hover{border-color:var(--off)}
 
 /* ============ MARQUEE ============ */
-.marquee{background:var(--off);color:var(--carvao);padding:16px 0;overflow:hidden;
+.marquee{background:var(--vermelho);color:#F8EFE8;padding:16px 0;overflow:hidden;
   border-bottom:1px solid var(--rule);position:relative}
 .marquee .track{display:flex;gap:0;width:max-content;animation:slide 28s linear infinite}
 .marquee b{font-family:var(--display);font-weight:400;font-size:clamp(24px,3.4vw,38px);
   text-transform:uppercase;padding:0 26px;white-space:nowrap;letter-spacing:.01em}
-.marquee i{font-style:normal;color:var(--vermelho);padding:0 4px}
+.marquee i{font-style:normal;color:#171313;padding:0 4px}
 @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ============ SEÇÕES ============ */
@@ -152,7 +160,7 @@ section{padding:88px 0;border-bottom:1px solid var(--rule);position:relative}
 .in .label::before,.label.in::before{width:34px}
 h2{font-family:var(--display);font-weight:400;font-size:clamp(32px,5.2vw,58px);line-height:.96;
   text-transform:uppercase;margin:0 0 28px;max-width:20ch}
-.lede{font-size:19px;color:#CBBDB4;max-width:62ch}
+.lede{font-size:19px;color:#3E3633;max-width:62ch}
 
 /* reveal — só esconde quando o JS está ativo */
 .js [data-reveal]{opacity:0;transform:translateY(26px);
@@ -168,42 +176,14 @@ blockquote::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;
 blockquote.in::before{transform:scaleY(1)}
 @media (max-width:900px){.manifesto{grid-template-columns:1fr;gap:34px}}
 
-/* ============ PILARES ============ */
-.pilares{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:2px;margin-top:12px}
-.pilar{position:relative;overflow:hidden;background:var(--carvao-2);padding:28px 22px;min-height:158px;
-  display:flex;flex-direction:column;justify-content:space-between;border-top:4px solid var(--p,var(--vermelho))}
-.pilar::before{content:"";position:absolute;inset:0;background:var(--p,var(--vermelho));
-  transform:translateY(100%);transition:transform .45s var(--ease)}
-.pilar:hover::before,.pilar:focus-within::before{transform:translateY(0)}
-.pilar > *{position:relative;z-index:2;transition:color .35s var(--ease)}
-.pilar b{font-family:var(--display);font-weight:400;font-size:26px;text-transform:uppercase;line-height:1}
-.pilar span{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.pilar:hover b,.pilar:hover span,.pilar:focus-within b,.pilar:focus-within span{color:var(--carvao)}
-.pilar[style*="--p:var(--roxo)"]:hover b,.pilar[style*="--p:var(--roxo)"]:hover span,
-.pilar[style*="--p:var(--verde)"]:hover b,.pilar[style*="--p:var(--verde)"]:hover span,
-.pilar[style*="--p:var(--vermelho)"]:hover b,.pilar[style*="--p:var(--vermelho)"]:hover span{color:var(--off)}
-
-/* ============ NÚMEROS ============ */
-.numeros{background:var(--off);color:var(--carvao)}
-.numeros .label{color:#6B615C}
-.num-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:34px;margin-top:20px}
-.num b{display:block;font-family:var(--display);font-weight:400;font-size:clamp(48px,7vw,84px);
-  line-height:.88;font-variant-numeric:tabular-nums}
-.num > span{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
-  color:#6B615C;display:block;margin-top:12px;max-width:22ch}
-.num b .count{font:inherit;color:inherit;letter-spacing:inherit;text-transform:none;display:inline;margin:0;max-width:none}
-.num i{font-style:normal;color:var(--vermelho)}
-
-
 /* ============ BLOCO GRÁFICO ============ */
 .gblock{position:relative;overflow:hidden;background:var(--carvao-2);isolation:isolate}
 .gblock::after{content:"";position:absolute;inset:0;z-index:1;
-  background-image:repeating-linear-gradient(45deg,rgba(248,239,232,.045) 0 2px,transparent 2px 9px);
+  background-image:repeating-linear-gradient(45deg,rgba(36,32,33,.05) 0 2px,transparent 2px 9px);
   animation:drift 14s linear infinite}
 @keyframes drift{to{background-position:64px 64px}}
 .gblock .mark{position:absolute;z-index:2;opacity:.14;filter:grayscale(1) contrast(1.4)}
 .gblock .blob{position:absolute;z-index:0;border-radius:50%;filter:blur(28px);opacity:.5}
-
 
 /* ============ INSTITUCIONAL ============ */
 .inst{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:12px}
@@ -213,23 +193,6 @@ blockquote.in::before{transform:scaleY(1)}
 .inst-card h3{font-family:var(--body);font-weight:700;font-size:17px;margin:0 0 6px}
 .inst-card p{margin:0;color:var(--muted);font-size:15px}
 
-/* ============ EQUIPE ============ */
-.equipe{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;margin-top:12px}
-@media (max-width:900px){.equipe{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:540px){.equipe{grid-template-columns:1fr}}
-.pessoa{background:var(--carvao-2);padding:22px}
-.pessoa .gblock{aspect-ratio:1;margin-bottom:18px;display:grid;place-items:center}
-.pessoa .gblock .ini{position:relative;z-index:3;font-family:var(--display);font-weight:400;
-  font-size:clamp(40px,6vw,64px);color:var(--off);letter-spacing:.02em;
-  transition:transform .5s var(--ease)}
-.pessoa:hover .gblock .ini{transform:scale(1.08)}
-.pessoa .gblock .blob{width:70%;aspect-ratio:1;left:15%;top:22%;animation:float 15s ease-in-out infinite}
-.pessoa .gblock .mark{width:64%;left:18%;bottom:-14%}
-.pessoa b{display:block;font-family:var(--display);font-weight:400;font-size:21px;
-  text-transform:uppercase;line-height:1.05}
-.pessoa span{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--muted);display:block;margin-top:7px}
-
 /* ============ APOIO ============ */
 .apoio-slots{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:2px;margin-top:18px}
 .slot{background:var(--carvao-2);height:92px;display:grid;place-items:center;font-family:var(--mono);
@@ -238,29 +201,29 @@ blockquote.in::before{transform:scaleY(1)}
 .slot:hover{background:var(--carvao-3);color:var(--muted)}
 
 /* ============ CTA FINAL ============ */
-.final{background:var(--vermelho);color:var(--off);border-bottom:0;overflow:hidden}
+.final{background:var(--vermelho);color:#F8EFE8;border-bottom:0;overflow:hidden}
 .final .label{color:#FFD9D4}
 .final .label::before{background:var(--amarelo)}
 .final p{color:#FFDAD5}
-.final .btn-primary{background:var(--carvao)}
+.final .btn-primary{background:var(--carvao);color:var(--off)}
 .final .btn-primary::before{background:var(--off)}
 .final .btn-primary:hover span{color:var(--carvao)}
-.final .btn-ghost{border-color:#FF9E93}
+.final .btn-ghost{border-color:#FF9E93;color:#F8EFE8}
 .final .btn-ghost::before{background:var(--carvao)}
 .final .btn-ghost:hover span{color:var(--off)}
 .final .btn-ghost:hover{border-color:var(--carvao)}
 
-.pend{margin-top:34px;border:1px dashed rgba(248,239,232,.3);padding:14px 18px;font-family:var(--mono);
+.pend{margin-top:34px;border:1px dashed rgba(36,32,33,.35);padding:14px 18px;font-family:var(--mono);
   font-size:12px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;max-width:60ch}
 .final .pend{border-color:#FF9E93;color:#FFDAD5}
 
-footer{background:#0E0B0B;padding:48px 0 36px}
+footer{padding:48px 0 36px}
 .foot{display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between;align-items:center}
 .foot .lockup img{width:42px;height:42px}
 .foot nav{display:flex;flex-wrap:wrap;gap:12px 22px}
 .foot nav a{white-space:nowrap}
 .foot small{display:block;margin-top:28px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;
-  color:#6B615C;text-transform:uppercase}
+  color:var(--muted);text-transform:uppercase}
 
 /* ============ REDUCED MOTION ============ */
 @media (prefers-reduced-motion:reduce){
@@ -270,17 +233,10 @@ footer{background:#0E0B0B;padding:48px 0 36px}
   .js .line > span{transform:none!important}
   .label::before{width:34px}
   blockquote::before{transform:scaleY(1)}
-  #grain{display:none}
 }
 
 /* --- compatibilidade next/image: o logo vira <Image>, a altura segue a largura --- */
 .gblock .mark{height:auto}
-
-/* Equivalente por classe das regras .pilar[style*="--p:..."] do mockup: em React a
-   custom property no style inline nem sempre serializa igual, então os pilares de
-   fundo escuro (vermelho, verde, roxo) marcam a classe e mantêm o texto em --off. */
-.pilar.fill-escuro:hover b,.pilar.fill-escuro:hover span,
-.pilar.fill-escuro:focus-within b,.pilar.fill-escuro:focus-within span{color:var(--off)}
 
 /* ======================================================================
    v2 — blocos novos (Galeria por categoria, Nossos Projetos, Eventos).
@@ -300,20 +256,8 @@ section[id],.pilar[id]{scroll-margin-top:96px}
 
 /* ---- Galeria por categoria ---- */
 .galeria{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:2px;margin-top:12px}
-.gal-card{display:block;background:var(--carvao-2);padding-bottom:18px;
-  border-top:4px solid var(--p,var(--vermelho));
-  transition:transform .4s var(--ease),background .4s var(--ease)}
-.gal-card:hover,.gal-card:focus-visible{transform:translateY(-6px);background:var(--carvao-3)}
-.gal-ph{aspect-ratio:1}
-.gal-card b{display:block;font-family:var(--display);font-weight:400;font-size:21px;
-  text-transform:uppercase;line-height:1.05;padding:16px 18px 0}
 
 /* ---- Nossos Projetos ---- */
-
-
-
-
-
 
 /* ======================================================================
    v3 — mural.md: fotos reais, parallax, spray na rolagem, cards 3D,
@@ -331,41 +275,11 @@ section[id],.pilar[id]{scroll-margin-top:96px}
   transition:opacity .55s var(--ease);pointer-events:none}
 .gal-card:hover .foto-tinta,.lng-card:hover .foto-tinta,
 .foto:hover .foto-tinta{opacity:0}
-.gal-card:hover .foto-img{scale:1.26}
 
 /* ---- Spray na rolagem ---- */
 .spray{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;
   pointer-events:none;opacity:.5;mix-blend-mode:screen}
 section > .wrap{position:relative;z-index:1}
-
-/* ---- Card colecionável (line-up) ---- */
-.card3d{perspective:1100px;aspect-ratio:1;margin-bottom:18px;cursor:pointer}
-.card3d.sem-verso{cursor:default}
-.card3d-in{position:relative;width:100%;height:100%;transform-style:preserve-3d;
-  transition:transform .75s var(--ease)}
-.card3d:not(.sem-verso):hover .card3d-in,
-.card3d:not(.sem-verso):focus-visible .card3d-in,
-.card3d.virado .card3d-in{transform:rotateY(180deg)}
-.card3d-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
-  display:grid;place-items:center;overflow:hidden}
-.card3d-verso{transform:rotateY(180deg);background:var(--carvao-3);
-  border-top:4px solid var(--p,var(--vermelho));padding:22px;align-content:center;
-  place-items:start;gap:10px}
-.card3d-verso b{font-family:var(--display);font-weight:400;font-size:20px;
-  text-transform:uppercase;line-height:1.05}
-.card3d-verso p{margin:0;font-size:14px;color:#CBBDB4;line-height:1.5}
-.card3d-redes{display:flex;gap:14px;font-family:var(--mono);font-size:11px;
-  letter-spacing:.1em;text-transform:uppercase}
-.card3d-redes a{color:var(--amarelo);border-bottom:1px solid transparent;transition:border-color .3s}
-.card3d-redes a:hover,.card3d-redes a:focus-visible{border-bottom-color:var(--amarelo)}
-.card3d-dica{position:absolute;z-index:4;right:12px;bottom:10px;font-family:var(--mono);
-  font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
-  opacity:0;transition:opacity .35s var(--ease)}
-.card3d:hover .card3d-dica{opacity:1}
-/* a frente do card reaproveita o .gblock, mas o .pessoa .gblock do mockup
-   tinha a margem — aqui ela vive no .card3d */
-.pessoa .card3d .gblock{margin-bottom:0}
-
 
 /* ---- Colagem do hero ---- */
 .colagem{position:absolute;z-index:1;inset:0;pointer-events:none}
@@ -401,13 +315,13 @@ section > .wrap{position:relative;z-index:1}
 .tagger-tela{position:relative;background:var(--carvao-2);overflow:hidden}
 /* xadrez que denuncia o PNG transparente */
 .tagger-tela{background-image:
-  linear-gradient(45deg,rgba(248,239,232,.05) 25%,transparent 25% 75%,rgba(248,239,232,.05) 75%),
-  linear-gradient(45deg,rgba(248,239,232,.05) 25%,transparent 25% 75%,rgba(248,239,232,.05) 75%);
+  linear-gradient(45deg,rgba(36,32,33,.05) 25%,transparent 25% 75%,rgba(36,32,33,.05) 75%),
+  linear-gradient(45deg,rgba(36,32,33,.05) 25%,transparent 25% 75%,rgba(36,32,33,.05) 75%);
   background-size:26px 26px;background-position:0 0,13px 13px}
 .tagger-tela canvas{display:block;width:100%;height:auto}
 .tagger-carregando{position:absolute;inset:0;display:grid;place-items:center;
   font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--muted);background:rgba(23,19,19,.8)}
+  color:var(--muted);background:rgba(248,239,232,.85)}
 
 .tagger-painel{display:flex;flex-direction:column;gap:22px}
 .tagger-campo{display:block;position:relative}
@@ -432,7 +346,7 @@ section > .wrap{position:relative;z-index:1}
   transition:transform .3s var(--ease),border-color .3s var(--ease),background .3s var(--ease),color .3s var(--ease)}
 .chip:hover{transform:translateY(-3px);border-color:var(--off)}
 .chip.on{background:var(--off);border-color:var(--off);color:var(--carvao)}
-.chip:focus-visible,.lata:focus-visible{outline:3px solid var(--amarelo);outline-offset:3px}
+.chip:focus-visible,.lata:focus-visible{outline:3px solid var(--off);outline-offset:3px}
 .tagger-acoes{margin-top:4px}
 .tagger-aviso{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
   color:var(--amarelo);margin:0;min-height:18px}
@@ -443,16 +357,16 @@ section > .wrap{position:relative;z-index:1}
 .bb-aparelho{position:relative;display:block;border:0;background:none;padding:0;cursor:pointer;
   perspective:620px}
 .bb-corpo{display:flex;align-items:center;gap:8px;padding:12px 14px;
-  background:linear-gradient(160deg,var(--carvao-3),#191414);
-  border:2px solid var(--rule);border-radius:6px;
-  box-shadow:0 14px 34px rgba(0,0,0,.55),inset 0 1px 0 rgba(248,239,232,.1);
+  background:linear-gradient(160deg,#2C2424,#141010);
+  border:2px solid #3A3030;border-radius:6px;
+  box-shadow:0 14px 30px rgba(36,32,33,.3),inset 0 1px 0 rgba(248,239,232,.1);
   transform:rotateY(-16deg) rotateX(5deg);transform-style:preserve-3d;
   transition:transform .55s var(--ease),border-color .35s var(--ease)}
 .boombox:hover .bb-corpo,.boombox.aberto .bb-corpo{transform:rotateY(0deg) rotateX(0deg)}
 .boombox.aberto .bb-corpo{border-color:var(--amarelo)}
 /* alça */
 .bb-alca{position:absolute;left:50%;top:-11px;width:62px;height:20px;margin-left:-31px;
-  border:3px solid var(--rule);border-bottom:0;border-radius:14px 14px 0 0}
+  border:3px solid #2C2424;border-bottom:0;border-radius:14px 14px 0 0}
 /* alto-falantes */
 .bb-falante{width:46px;height:46px;border-radius:50%;flex:none;
   background:radial-gradient(circle at 50% 50%,#0D0A0A 0 32%,#241D1D 33% 100%);
@@ -469,15 +383,15 @@ section > .wrap{position:relative;z-index:1}
 /* deck da fita */
 .bb-deck{width:56px;height:34px;background:#0D0A0A;border:1px solid #3A3030;border-radius:3px;
   display:flex;align-items:center;justify-content:space-around}
-.bb-bobina{width:13px;height:13px;border-radius:50%;border:2px dashed var(--muted)}
+.bb-bobina{width:13px;height:13px;border-radius:50%;border:2px dashed #A2948C}
 .boombox.tocando .bb-bobina{animation:bb-gira 1.5s linear infinite}
 @keyframes bb-gira{to{transform:rotate(360deg)}}
 .bb-marca{position:absolute;right:10px;bottom:4px;font-family:var(--display);font-size:11px;
-  letter-spacing:.06em;color:var(--muted)}
+  letter-spacing:.06em;color:#A2948C}
 
 /* painel */
-.bb-painel{width:268px;background:rgba(23,19,19,.97);border:1px solid var(--rule);
-  backdrop-filter:blur(10px);padding:18px;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+.bb-painel{width:268px;background:rgba(248,239,232,.97);border:1px solid var(--rule);
+  backdrop-filter:blur(10px);padding:18px;box-shadow:0 20px 50px rgba(36,32,33,.22)}
 .bb-titulo{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--muted);margin:0 0 14px}
 .bb-lista{list-style:none;margin:0 0 16px;padding:0;display:flex;flex-direction:column;gap:2px}
@@ -509,7 +423,7 @@ section > .wrap{position:relative;z-index:1}
   /* metade do tamanho: no celular a caixa disputa espaço com o conteúdo */
   .bb-aparelho{padding-top:8px}
   .bb-corpo{gap:5px;padding:5px 7px;border-width:1px;border-radius:4px;
-    box-shadow:0 6px 16px rgba(0,0,0,.55),inset 0 1px 0 rgba(248,239,232,.1)}
+    box-shadow:0 6px 16px rgba(36,32,33,.3),inset 0 1px 0 rgba(248,239,232,.1)}
   .bb-alca{top:0;width:34px;height:12px;margin-left:-17px;border-width:2px;border-radius:9px 9px 0 0}
   .bb-falante{width:26px;height:26px;border-width:1px}
   .bb-falante i{width:9px;height:9px}
@@ -538,15 +452,23 @@ section > .wrap{position:relative;z-index:1}
    onde o nome corre na vertical, a foto ocupando o resto, e o disco saindo
    pela direita. Duas fileiras de tres. */
 .vinil-grade{list-style:none;margin:12px 0 0;padding:0;
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  display:grid;grid-template-columns:repeat(6,minmax(0,1fr));
   /* o disco sai ~34% para a direita: o gap abre espaco para ele */
   column-gap:clamp(64px,9vw,120px);row-gap:56px;padding-right:clamp(40px,6vw,80px)}
-@media (max-width:900px){.vinil-grade{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* Seis colunas e cada capa ocupa duas: dá 3 por linha embaixo e deixa os
+   dois DJs da fileira de cima centralizados, no mesmo tamanho dos outros. */
+.vinil-grade > li{grid-column:span 2}
+.vinil-grade > li:nth-child(1){grid-column:2 / span 2}
+.vinil-grade > li:nth-child(2){grid-column:4 / span 2}
+@media (max-width:900px){
+  .vinil-grade{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .vinil-grade > li,.vinil-grade > li:nth-child(1),.vinil-grade > li:nth-child(2){grid-column:auto}
+}
 @media (max-width:540px){.vinil-grade{grid-template-columns:1fr;padding-right:28%}}
 
 .vinil-capa-btn{display:block;width:100%;text-align:left;background:none;border:0;padding:0;
   cursor:pointer;color:var(--off)}
-.vinil-capa-btn:focus-visible{outline:3px solid var(--amarelo);outline-offset:4px}
+.vinil-capa-btn:focus-visible{outline:3px solid var(--off);outline-offset:4px}
 .vinil-album{position:relative;display:block;aspect-ratio:1}
 
 /* disco atras da capa, sempre aparecendo um pouco */
@@ -558,14 +480,14 @@ section > .wrap{position:relative;z-index:1}
 
 /* a capa */
 .vinil-manga{position:relative;z-index:1;display:grid;grid-template-columns:22% 1fr;
-  height:100%;box-shadow:0 14px 34px rgba(0,0,0,.55);overflow:hidden}
+  height:100%;box-shadow:0 14px 30px rgba(36,32,33,.28);overflow:hidden}
 .vinil-manga-faixa{background:#0D0B0B;display:flex;align-items:flex-end;justify-content:center;
   padding:9% 0;overflow:hidden}
 /* writing-mode + 180deg = le de baixo para cima, como no mockup, e o texto
    ocupa a altura da faixa sem calculo de posicao */
 .vinil-manga-nome{writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;
   font-family:var(--display);font-weight:400;font-size:clamp(18px,2.3vw,30px);line-height:1;
-  letter-spacing:.04em;text-transform:uppercase;color:var(--off)}
+  letter-spacing:.04em;text-transform:uppercase;color:#F8EFE8}
 .vinil-manga-foto{position:relative;display:block;height:100%}
 .vinil-manga-foto .vinil-capa{position:absolute;inset:0;aspect-ratio:auto;height:100%;
   box-shadow:none}
@@ -590,7 +512,7 @@ section > .wrap{position:relative;z-index:1}
 
 /* ---- Painel ---- */
 .vinil-fundo{position:fixed;inset:0;z-index:200;display:flex;align-items:flex-end;
-  justify-content:center;background:rgba(14,11,11,.86);backdrop-filter:blur(6px)}
+  justify-content:center;background:rgba(248,239,232,.82);backdrop-filter:blur(6px)}
 @media (min-width:901px){.vinil-fundo{align-items:center}}
 .vinil-painel{position:relative;width:100%;max-width:1040px;max-height:92dvh;overflow:hidden;
   background:var(--carvao);border-top:5px solid var(--p,var(--vermelho));
@@ -601,13 +523,14 @@ section > .wrap{position:relative;z-index:1}
 }
 .vinil-fechar{position:absolute;right:12px;top:12px;z-index:10;width:44px;height:44px;
   display:grid;place-items:center;border:0;border-radius:50%;cursor:pointer;
-  background:rgba(248,239,232,.12);color:var(--off);font-size:24px;line-height:1;
+  background:rgba(36,32,33,.08);color:var(--off);font-size:24px;line-height:1;
   transition:background .3s var(--ease)}
-.vinil-fechar:hover{background:rgba(248,239,232,.24)}
-.vinil-fechar:focus-visible{outline:3px solid var(--amarelo);outline-offset:2px}
+.vinil-fechar:hover{background:rgba(36,32,33,.16)}
+.vinil-fechar:focus-visible{outline:3px solid var(--off);outline-offset:2px}
 
 /* palco do disco: nunca deixa o texto por cima */
-.vinil-palco{display:grid;place-items:center;background:var(--carvao-2);padding:34px 24px}
+/* capa e disco no topo da coluna, alinhados com o começo do texto */
+.vinil-palco{display:grid;place-items:start center;align-content:start;background:var(--carvao-2);padding:34px 24px}
 @media (min-width:901px){.vinil-palco{padding:48px 28px}}
 .vinil-conjunto{position:relative;width:100%;max-width:340px}
 @media (max-width:420px){.vinil-conjunto{max-width:304px}}
@@ -625,12 +548,12 @@ section > .wrap{position:relative;z-index:1}
   color:var(--muted);margin:0 0 6px}
 .vinil-nome{font-family:var(--display);font-weight:400;font-size:clamp(32px,5.6vw,58px);
   line-height:.94;text-transform:uppercase;margin:0;max-width:16ch}
-.vinil-sobre{margin:22px 0 0;color:#CBBDB4;font-size:17px;line-height:1.6}
+.vinil-sobre{margin:22px 0 0;color:#3E3633;font-size:17px;line-height:1.6}
 .vinil-lista{margin-top:28px}
 .vinil-lista h4{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
   color:var(--muted);margin:0 0 10px;font-weight:400}
 .vinil-lista ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
-.vinil-lista li{display:flex;gap:10px;font-size:16px;color:#CBBDB4;line-height:1.5}
+.vinil-lista li{display:flex;gap:10px;font-size:16px;color:#3E3633;line-height:1.5}
 .vinil-lista li span{flex:none;width:6px;height:6px;margin-top:9px;border-radius:50%;
   background:var(--p,var(--vermelho))}
 .vinil-insta{display:inline-block;margin-top:30px;font-family:var(--mono);font-size:12px;
@@ -638,12 +561,22 @@ section > .wrap{position:relative;z-index:1}
   border:2px solid var(--rule);color:var(--off);transition:background .3s var(--ease),
   color .3s var(--ease),border-color .3s var(--ease)}
 .vinil-insta:hover{background:var(--off);color:var(--carvao);border-color:var(--off)}
-.vinil-insta:focus-visible{outline:3px solid var(--amarelo);outline-offset:3px}
+/* ícone e @ lado a lado, no link da bio e no botão do contato */
+.vinil-insta,.btn-insta span{display:inline-flex;align-items:center;gap:10px}
+.vinil-insta:focus-visible{outline:3px solid var(--off);outline-offset:3px}
 .vinil-pend{margin-top:26px}
+/* no claro, painel e véu têm o mesmo tom: a sombra é o que separa os dois */
+.vinil-painel,.lng-modal{box-shadow:0 30px 80px rgba(36,32,33,.28),0 0 0 1px var(--rule)}
+
+/* ===================== Karaokê da bio ===================== */
+.karaoke span{opacity:.35;transition:opacity .45s ease}
+.karaoke.aceso span{opacity:1;transition-delay:calc(var(--i) * var(--passo))}
+/* a bio acende na cor cheia do texto, não no tom mais suave do painel */
+.vinil-sobre.karaoke{color:var(--off)}
+@media (prefers-reduced-motion:reduce){.karaoke span{transition:none}}
 
 @media (prefers-reduced-motion:reduce){
   .vinil-disco.girando{animation:none}
-  .vinil-borda{transition:none}
 }
 
 /* ======================================================================
@@ -656,7 +589,7 @@ section > .wrap{position:relative;z-index:1}
    verdade: copiar o titulo continua dando a frase com espacos. O padding
    negativo compensa o overflow:hidden para nao cortar descendente de g/y/p. */
 .pal{display:inline-block;overflow:hidden;vertical-align:bottom;
-  padding-bottom:.08em;margin-bottom:-.08em}
+  padding-top:.18em;padding-bottom:.08em;margin-bottom:-.08em}
 /* o h2 em si não usa o fade do [data-reveal]: quem anima são as palavras */
 .js h2[data-palavras][data-reveal]{opacity:1;transform:none}
 .js h2[data-palavras] .pal > span{display:block;transform:translateY(110%);
@@ -683,14 +616,13 @@ section > .wrap{position:relative;z-index:1}
 .lambe-fita-a{left:-10px;top:8%;transform:rotate(-24deg)}
 .lambe-fita-b{right:-10px;bottom:12%;transform:rotate(-24deg)}
 
-
 /* ---- Galeria horizontal ---- */
 .gh{position:relative;margin-top:22px}
 .gh-trilha{list-style:none;margin:0;padding:0 0 18px;display:flex;gap:16px;
   overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:0;
   scrollbar-width:thin;scrollbar-color:var(--rule) transparent;
   overscroll-behavior-x:contain}
-.gh-trilha:focus-visible{outline:3px solid var(--amarelo);outline-offset:6px}
+.gh-trilha:focus-visible{outline:3px solid var(--off);outline-offset:6px}
 .gh-trilha::-webkit-scrollbar{height:6px}
 .gh-trilha::-webkit-scrollbar-thumb{background:var(--rule)}
 .gh-item{flex:0 0 clamp(250px,30vw,360px);scroll-snap-align:start}
@@ -711,7 +643,7 @@ section > .wrap{position:relative;z-index:1}
 .gh-setas button:hover:not(:disabled){background:var(--off);color:var(--carvao);
   border-color:var(--off)}
 .gh-setas button:disabled{opacity:.3;cursor:not-allowed}
-.gh-setas button:focus-visible{outline:3px solid var(--amarelo);outline-offset:2px}
+.gh-setas button:focus-visible{outline:3px solid var(--off);outline-offset:2px}
 
 /* ---- Reduzir movimento: tudo desta leva para ---- */
 @media (prefers-reduced-motion:reduce){
@@ -734,7 +666,7 @@ section > .wrap{position:relative;z-index:1}
 
 .lng-card{display:block;width:100%;text-align:left;background:none;border:0;padding:0;
   cursor:pointer;color:var(--off)}
-.lng-card:focus-visible{outline:3px solid var(--amarelo);outline-offset:4px}
+.lng-card:focus-visible{outline:3px solid var(--off);outline-offset:4px}
 .lng-moldura{position:relative;display:block;aspect-ratio:3/4;overflow:hidden;
   background:var(--carvao-2);border-bottom:4px solid var(--p,var(--vermelho))}
 .lng-img{width:100%;height:100%;object-fit:cover;
@@ -752,7 +684,7 @@ section > .wrap{position:relative;z-index:1}
 
 /* ---- Modal ---- */
 .lng-fundo{position:fixed;inset:0;z-index:200;display:flex;align-items:flex-end;
-  justify-content:center;background:rgba(14,11,11,.88);backdrop-filter:blur(6px)}
+  justify-content:center;background:rgba(248,239,232,.82);backdrop-filter:blur(6px)}
 @media (min-width:901px){.lng-fundo{align-items:center;padding:32px}}
 .lng-modal{position:relative;width:100%;max-width:860px;background:var(--carvao);
   border-top:5px solid var(--p,var(--vermelho));
@@ -763,10 +695,10 @@ section > .wrap{position:relative;z-index:1}
 }
 .lng-fechar{position:absolute;right:12px;top:12px;z-index:10;width:44px;height:44px;
   display:grid;place-items:center;border:0;border-radius:50%;cursor:pointer;
-  background:rgba(248,239,232,.12);color:var(--off);font-size:26px;line-height:1;
+  background:rgba(36,32,33,.08);color:var(--off);font-size:26px;line-height:1;
   transition:background .3s var(--ease)}
-.lng-fechar:hover{background:rgba(248,239,232,.26)}
-.lng-fechar:focus-visible{outline:3px solid var(--amarelo);outline-offset:2px}
+.lng-fechar:hover{background:rgba(36,32,33,.16)}
+.lng-fechar:focus-visible{outline:3px solid var(--off);outline-offset:2px}
 
 .lng-cab{flex:none;padding:28px 24px 20px;border-bottom:1px solid var(--rule)}
 @media (min-width:901px){.lng-cab{padding:36px 44px 24px}}
@@ -774,7 +706,7 @@ section > .wrap{position:relative;z-index:1}
   color:var(--muted);margin:0 0 8px}
 .lng-cab h3{font-family:var(--display);font-weight:400;font-size:clamp(32px,6vw,54px);
   line-height:.94;text-transform:uppercase;margin:0;padding-right:52px}
-.lng-resumo{margin:14px 0 0;color:#CBBDB4;font-size:17px}
+.lng-resumo{margin:14px 0 0;color:#3E3633;font-size:17px}
 
 .lng-corpo{flex:1;min-height:0;overflow-y:auto;padding:24px;
   overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
@@ -784,9 +716,9 @@ section > .wrap{position:relative;z-index:1}
 .lng-secao h4{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
   color:var(--muted);font-weight:400;margin:0 0 12px;
   padding-bottom:8px;border-bottom:1px solid var(--rule)}
-.lng-secao p{margin:0;color:#CBBDB4;font-size:16px;line-height:1.6}
+.lng-secao p{margin:0;color:#3E3633;font-size:16px;line-height:1.6}
 .lng-provisorio{display:inline-block;margin-left:10px;font-style:normal;font-size:10px;
-  letter-spacing:.14em;color:var(--carvao);background:var(--amarelo);padding:3px 7px}
+  letter-spacing:.14em;color:#171313;background:var(--amarelo);padding:3px 7px}
 
 .lng-eventos{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
 .lng-eventos li{border-left:3px solid var(--p,var(--vermelho));padding-left:12px}

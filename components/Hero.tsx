@@ -10,9 +10,8 @@
    parágrafo é o mesmo de antes, vindo de data/home.ts. */
 
 import { useEffect, useRef } from "react";
-import HeroCanvas from "./HeroCanvas";
 import HeroColagem from "./HeroColagem";
-import HeroLogo3D from "./HeroLogo3D";
+import HeroLogo from "./HeroLogo";
 import HeroVideo from "./HeroVideo";
 import { home } from "@/data/home";
 
@@ -52,12 +51,11 @@ export default function Hero() {
   return (
     <section className="hero" ref={root}>
       <HeroVideo {...home.video} />
-      <HeroCanvas />
       <div className="glow" aria-hidden="true" />
       <HeroColagem />
 
       <div className="wrap hero-centro">
-        <HeroLogo3D />
+        <HeroLogo />
 
         <p className="kicker" id="k1">
           {home.kicker}

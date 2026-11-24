@@ -6,9 +6,9 @@
    dinâmico dentro do efeito — não dá para ele rodar no servidor, e assim
    também fica fora do bundle da primeira pintura.
 
-   O container define --hairline-plate com o mesmo fundo da seção: sem isso
-   as casas saem sobre o #08090a padrão do tema dark do módulo e aparece um
-   retângulo mais escuro que o resto do site. */
+   O site é claro, então o módulo roda no tema light, e o container define
+   --hairline-plate com o mesmo fundo da seção: sem isso o mapa desenha a
+   própria placa e aparece um retângulo de outro tom no meio da página. */
 
 import { useEffect, useRef } from "react";
 
@@ -36,7 +36,7 @@ export default function MapaBairro({
     import("./bairro-mapa.js").then(({ montarBairro }) => {
       if (!vivo || !caixa.current) return;
       mapa = montarBairro(caixa.current, {
-        tema: "dark",
+        tema: "light",
         alcance: 48,
         aoEscolher: (n: number) => escolher.current?.(n),
         aoLer: (texto: string) => ler.current?.(texto),

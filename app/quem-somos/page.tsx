@@ -67,10 +67,6 @@ export default function QuemSomosPage() {
             Equipe
           </p>
           <Titulo>Quem faz o Street Fest</Titulo>
-          <p className="lede" data-reveal>
-            O organizador principal é DJ — então cada um aqui é um álbum. Clica na capa para o
-            disco sair e conhecer a pessoa.
-          </p>
           <OrganizadoresVinil organizadores={organizadores} titulo="Quem faz o Street Fest" />
           <p className="pend" data-reveal>
             Fotos são recortes provisórios do portfólio · pendente dos organizadores: apresentação,

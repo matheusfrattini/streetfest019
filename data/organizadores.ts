@@ -39,7 +39,7 @@ function idDe(nome: string) {
 export const organizadores: Organizador[] = equipe.map((p) => ({
   id: idDe(p.nome),
   nome: p.nome,
-  papel: p.funcao,
+  papel: p.funcao ?? undefined,
   foto: p.foto,
   cor: p.cor,
   sobre: p.sobre ?? null,

@@ -19,6 +19,8 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { createPortal } from "react-dom";
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import Foto from "./Foto";
+import IconeInstagram from "./IconeInstagram";
+import TextoKaraoke from "./TextoKaraoke";
 import type { Organizador } from "@/data/organizadores";
 
 const MACACO = "/macaco.png";
@@ -145,7 +147,8 @@ function Painel({
     };
   }, [onFechar]);
 
-  const semTexto = !o.sobre && !o.noProjeto?.length && !o.antes?.length && !o.instagram;
+  /* o @ já pode existir sem a apresentação: o aviso fala só do texto */
+  const semTexto = !o.sobre && !o.noProjeto?.length && !o.antes?.length;
 
   const painel = (
     <motion.div
@@ -207,26 +210,28 @@ function Painel({
             {o.nome}
           </h3>
 
-          {o.sobre && <p className="vinil-sobre">{o.sobre}</p>}
+          {o.sobre && <TextoKaraoke texto={o.sobre} className="vinil-sobre" />}
 
           {o.noProjeto?.length ? <Lista titulo="No Street Fest" itens={o.noProjeto} /> : null}
           {o.antes?.length ? <Lista titulo="Antes do projeto" itens={o.antes} /> : null}
 
           {o.instagram && (
             <a
-              href={`https://instagram.com/${o.instagram}`}
+              href={`https://www.instagram.com/${o.instagram}/`}
               target="_blank"
               rel="noopener noreferrer"
               className="vinil-insta"
+              aria-label={`Instagram de ${o.nome}: @${o.instagram}`}
             >
+              <IconeInstagram />
               @{o.instagram}
             </a>
           )}
 
           {semTexto && (
             <p className="pend vinil-pend">
-              Pendente dos organizadores: apresentação, realizações no projeto, realizações
-              anteriores e Instagram — {titulo.toLowerCase()}
+              Pendente dos organizadores: apresentação, realizações no projeto e realizações
+              anteriores — {titulo.toLowerCase()}
             </p>
           )}
         </div>

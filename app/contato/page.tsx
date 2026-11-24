@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { CSSProperties } from "react";
 import ApoioSlot from "@/components/ApoioSlot";
+import IconeInstagram from "@/components/IconeInstagram";
 import Titulo from "@/components/Titulo";
 import { apoio } from "@/data/apoio";
 
@@ -25,8 +26,17 @@ export default function ContatoPage() {
             <a className="btn btn-primary" href="#">
               <span>Falar com o projeto</span>
             </a>
-            <a className="btn btn-ghost" href="https://instagram.com/streetfest019">
-              <span>@streetfest019</span>
+            <a
+              className="btn btn-ghost btn-insta"
+              href="https://www.instagram.com/streetfest019/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram do Street Fest 019: @streetfest019"
+            >
+              <span>
+                <IconeInstagram />
+                @streetfest019
+              </span>
             </a>
           </div>
           <p className="pend" data-reveal>

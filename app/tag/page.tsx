@@ -18,7 +18,7 @@ export default function TagPage() {
         <p className="label" data-reveal>
           Gerador de tags
         </p>
-        <Titulo>Assina aí</Titulo>
+        <Titulo>Crie a sua tag</Titulo>
         <p className="lede" data-reveal>
           Escreve teu nome, escolhe a lata e leva o sticker. Dá para baixar em PNG e postar onde
           quiser — marca a gente que a gente reposta.

@@ -1,10 +1,12 @@
 import type { CSSProperties } from "react";
 import Link from "next/link";
 import Hero from "@/components/Hero";
+import FrentesLinguagens from "@/components/FrentesLinguagens";
 import GaleriaHorizontal from "@/components/GaleriaHorizontal";
 import Marquee from "@/components/Marquee";
 import Titulo from "@/components/Titulo";
 import SprayScroll from "@/components/SprayScroll";
+import { frentes } from "@/data/frentes";
 import { galeria } from "@/data/galeria";
 
 export default function HomePage() {
@@ -47,6 +49,17 @@ export default function HomePage() {
           </p>
           <Titulo>O que rola quando a rua é nossa</Titulo>
           <GaleriaHorizontal itens={galeria} />
+        </div>
+      </section>
+
+      {/* As 10 linguagens fecham a home desde que a página O que fazemos saiu. */}
+      <section id="frentes" style={{ "--acc": "var(--roxo)" } as CSSProperties}>
+        <div className="wrap">
+          <p className="label" data-reveal>
+            Linguagens
+          </p>
+          <Titulo>Dez jeitos de ocupar a rua</Titulo>
+          <FrentesLinguagens frentes={frentes} />
         </div>
       </section>
     </>

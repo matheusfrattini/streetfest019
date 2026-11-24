@@ -2,12 +2,10 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-import { countUp } from "./CountUp";
 
 /* IntersectionObserver do mockup: delay escalonado pela posição entre os irmãos
-   [data-reveal] (idx * 70ms, teto de 420ms) e disparo dos contadores nos .num. */
+   [data-reveal] (idx * 70ms, teto de 420ms). */
 export function observarReveal(root: ParentNode): () => void {
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((e) => {
@@ -19,7 +17,6 @@ export function observarReveal(root: ParentNode): () => void {
         const idx = Math.max(0, sibs.indexOf(el));
         el.style.transitionDelay = Math.min(idx * 70, 420) + "ms";
         el.classList.add("in");
-        if (el.classList.contains("num")) countUp(el.querySelector(".count"), reduce);
       });
     },
     { rootMargin: "0px 0px -12% 0px", threshold: 0.15 }
